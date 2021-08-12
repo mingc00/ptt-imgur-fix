@@ -2,7 +2,12 @@
   "name": "Ptt imgur fix",
   "description": "修正 Ptt 網頁版 imgur 圖片顯示",
   "version": "1.0.0",
-  "permissions": ["webRequest", "webRequestBlocking", "https://imgur.com/*"],
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://imgur.com/*/embed*",
+    "https://www.ptt.cc/*"
+  ],
   "background": {
     "scripts": ["background.js"]
   },

@@ -2,13 +2,13 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
   function removeReferer(details) {
     for (let i = 0; i < details.requestHeaders.length; i++) {
       const header = details.requestHeaders[i];
-      if (header.name === "Referer" && header.value === "https://www.ptt.cc/") {
+      if (header.name === "Referer") {
         details.requestHeaders.splice(i, 1);
         break;
       }
     }
     return { requestHeaders: details.requestHeaders };
   },
-  { urls: ["https://imgur.com/*"] },
-  ["blocking", "requestHeaders", "extraHeaders"]
+  { urls: ["https://imgur.com/*/embed*"] },
+  ["blocking", "requestHeaders"].concat(chrome.app ? ["extraHeaders"] : [])
 );
