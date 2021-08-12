@@ -1,7 +1,11 @@
 {
-  "name": "Ptt imgur fix",
-  "description": "修正 Ptt 網頁版 imgur 圖片顯示",
-  "version": "1.0.0",
+  "name": "Ptt Imgur fix",
+  "description": "修正 Ptt 網頁版 Imgur 圖片顯示",
+  "version": "1.1.0",
+  "icons": {
+    "48": "icon/48.png",
+    "128": "icon/128.png"
+  },
   "permissions": [
     "webRequest",
     "webRequestBlocking",
