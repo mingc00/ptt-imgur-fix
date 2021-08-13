@@ -10,7 +10,7 @@ You can install the latest version from the [Chrome Web Store](https://chrome.go
 
 ## Firefox
 
-Wating for review.
+You can install the latest version from the [Add-ons for Firefox ](https://addons.mozilla.org/zh-TW/firefox/addon/ptt-imgur-fix/).
 
 ## Credit
 
