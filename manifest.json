@@ -11,10 +11,17 @@
     "webRequest",
     "webRequestBlocking",
     "https://imgur.com/*/embed*",
+    "https://api.imgur.com/3/*",
     "https://www.ptt.cc/*"
   ],
   "background": {
     "scripts": ["background.js"]
   },
+  "content_scripts": [
+    {
+      "matches": ["https://www.ptt.cc/*.html"],
+      "js": ["userscript.js"]
+    }
+  ],
   "manifest_version": 2
 }

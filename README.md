@@ -12,6 +12,20 @@ You can install the latest version from the [Chrome Web Store](https://chrome.go
 
 You can install the latest version from the [Add-ons for Firefox ](https://addons.mozilla.org/zh-TW/firefox/addon/ptt-imgur-fix/).
 
-## Credit
+## Changelog
 
-Icons made by [Freepik](https://www.freepik.com) from [www.flaticon.com](https://www.flaticon.com/)
+### 2.0.0 - 2021-10-02
+
+- Support imgur link and album
+
+### 1.1.1 - 2021-08-14
+
+- Update icon
+
+### 1.1.0 - 2021-08-12
+
+- Add icon
+
+### 1.0.0 - 2021-08-12
+
+- Remove referer header from imgur requests
