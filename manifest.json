@@ -12,7 +12,8 @@
     "webRequestBlocking",
     "https://imgur.com/*/embed*",
     "https://api.imgur.com/3/*",
-    "https://www.ptt.cc/*"
+    "https://www.ptt.cc/*",
+    "https://term.ptt.cc/"
   ],
   "background": {
     "scripts": ["background.js"]
@@ -20,7 +21,11 @@
   "content_scripts": [
     {
       "matches": ["https://www.ptt.cc/*.html"],
-      "js": ["userscript.js"]
+      "js": ["imgur.js", "userscript.js"]
+    },
+    {
+      "matches": ["https://term.ptt.cc/"],
+      "js": ["imgur.js", "term.js"]
     }
   ],
   "manifest_version": 2
