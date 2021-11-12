@@ -45,8 +45,10 @@ function registerObserver() {
         a.href.startsWith("https://pbs.twimg.com/") ||
         a.href.startsWith("https://live.staticflickr.com/")
     );
-    const albumAnchors = as.filter((a) =>
-      a.href.startsWith("https://imgur.com/a/")
+    const albumAnchors = as.filter(
+      (a) =>
+        a.href.startsWith("https://imgur.com/a/") ||
+        a.href.startsWith("https://m.imgur.com/a/")
     );
 
     if (targets.length === 0 && albumAnchors.length === 0) {
@@ -68,7 +70,7 @@ function registerObserver() {
 
     albumAnchors.forEach(async (a) => {
       const div = getPreviewContainer(a);
-      const match = a.href.match(/https:\/\/imgur.com\/a\/(\w+)/);
+      const match = a.href.match(/https:\/\/(?:m\.)?imgur.com\/a\/(\w+)/);
       if (!match) {
         return;
       }
