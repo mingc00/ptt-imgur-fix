@@ -30,12 +30,14 @@ function registerObserver() {
     return img;
   }
 
+  const processed = new WeakMap();
+
   function onUpdate() {
     const as = [...container.querySelectorAll(`a`)].filter(
-      (a) => !a._processed
+      (a) => !processed.get(a)
     );
     as.forEach((a) => {
-      a._processed = true;
+      processed.set(a, true);
     });
 
     const targets = as.filter(

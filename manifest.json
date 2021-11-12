@@ -1,7 +1,7 @@
 {
   "name": "Ptt Imgur fix",
-  "description": "修正 Ptt 網頁版 Imgur 圖片顯示",
-  "version": "2.0.0",
+  "description": "修正 Ptt 網頁版圖片顯示",
+  "version": "3.0.0",
   "icons": {
     "48": "icon/48.png",
     "128": "icon/128.png",
@@ -21,7 +21,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.ptt.cc/*.html"],
-      "js": ["imgur.js", "userscript.js"]
+      "js": ["imgur.js", "web.js"]
     },
     {
       "matches": ["https://term.ptt.cc/"],
