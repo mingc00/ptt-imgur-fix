@@ -45,11 +45,14 @@ function registerObserver() {
         a.href.startsWith("https://pbs.twimg.com/") ||
         a.href.startsWith("https://live.staticflickr.com/")
     );
-    const albumAnchors = as.filter(
-      (a) =>
-        a.href.startsWith("https://imgur.com/a/") ||
-        a.href.startsWith("https://m.imgur.com/a/")
-    );
+    const albumAnchors = as
+      .map((a) => {
+        const hash = a.href.match(
+          /https?:\/\/(?:m\.)?imgur.com\/a\/(\w+)/
+        )?.[1];
+        return hash ? [a, hash] : null;
+      })
+      .filter((e) => e);
 
     if (targets.length === 0 && albumAnchors.length === 0) {
       timer = null;
@@ -68,16 +71,12 @@ function registerObserver() {
       div.appendChild(createImage(a.href));
     });
 
-    albumAnchors.forEach(async (a) => {
+    albumAnchors.forEach(async ([a, hash]) => {
       const div = getPreviewContainer(a);
-      const match = a.href.match(/https:\/\/(?:m\.)?imgur.com\/a\/(\w+)/);
-      if (!match) {
-        return;
-      }
       while (div.firstChild) {
         div.removeChild(div.lastChild);
       }
-      const links = await resolveAlbum(match[1]);
+      const links = await resolveAlbum(hash);
       for (const link of links) {
         div.appendChild(createImage(link));
       }
