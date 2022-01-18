@@ -9,6 +9,6 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
     }
     return { requestHeaders: details.requestHeaders };
   },
-  { urls: ["https://imgur.com/*/embed*"] },
+  { urls: ["https://*.imgur.com/*"], types: ["image"] },
   ["blocking", "requestHeaders"].concat(chrome.app ? ["extraHeaders"] : [])
 );

@@ -10,8 +10,7 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "https://imgur.com/*/embed*",
-    "https://api.imgur.com/3/*",
+    "https://*.imgur.com/*",
     "https://www.ptt.cc/*",
     "https://term.ptt.cc/"
   ],
