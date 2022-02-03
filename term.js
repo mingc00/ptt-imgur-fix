@@ -32,14 +32,19 @@ function registerObserver() {
 
   const processed = new WeakMap();
 
-  function onUpdate() {
-    const as = [...container.querySelectorAll(`a`)].filter(
-      (a) => !processed.get(a)
-    );
-    as.forEach((a) => {
-      processed.set(a, true);
-    });
+  function getNewElements(elements) {
+    const results = [];
+    for (const e of elements) {
+      if (!processed.get(e)) {
+        processed.set(e);
+        results.push(e);
+      }
+    }
+    return results;
+  }
 
+  function onUpdate() {
+    const as = getNewElements(container.querySelectorAll(`a`));
     const targets = as.filter(
       (a) =>
         a.href.startsWith("https://pbs.twimg.com/") ||
@@ -54,7 +59,15 @@ function registerObserver() {
       })
       .filter((e) => e);
 
-    if (targets.length === 0 && albumAnchors.length === 0) {
+    const videoImgs = getNewElements(
+      container.querySelectorAll('img.hyperLinkPreview[src$=".mp4"]')
+    );
+
+    if (
+      targets.length === 0 &&
+      albumAnchors.length === 0 &&
+      videoImgs.length === 0
+    ) {
       timer = null;
       return;
     }
@@ -80,6 +93,14 @@ function registerObserver() {
       for (const link of links) {
         div.appendChild(createImage(link));
       }
+    });
+
+    videoImgs.forEach((img) => {
+      const videoEl = document.createElement("video");
+      videoEl.src = img.src;
+      videoEl.classList.add("hyperLinkPreview");
+      videoEl.controls = true;
+      img.parentNode.replaceChild(videoEl, img);
     });
 
     observer.observe(container, config);
