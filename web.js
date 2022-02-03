@@ -17,7 +17,7 @@ for (const a of links) {
   const url = new URL(a.href);
   const { pathname } = url;
   let match = null;
-  if ((match = pathname.match(/^\/a\/(\w+)/))) {
+  if ((match = pathname.match(/^\/(?:a|gallery)\/(\w+)/))) {
     albums.push({ dom: a, hash: match[1] });
   } else if ((match = pathname.match(/^\/(\w+)$/))) {
     createPreview(a, `https://i.imgur.com/${match[1]}.jpg`);

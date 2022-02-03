@@ -48,7 +48,7 @@ function registerObserver() {
     const albumAnchors = as
       .map((a) => {
         const hash = a.href.match(
-          /https?:\/\/(?:m\.)?imgur.com\/a\/(\w+)/
+          /https?:\/\/(?:m\.)?imgur.com\/(?:a|gallery)\/(\w+)/
         )?.[1];
         return hash ? [a, hash] : null;
       })
