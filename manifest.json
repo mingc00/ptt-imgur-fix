@@ -1,7 +1,7 @@
 {
   "name": "Ptt Imgur fix",
   "description": "修正 Ptt 網頁版圖片顯示",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "icons": {
     "48": "icon/48.png",
     "128": "icon/128.png",
