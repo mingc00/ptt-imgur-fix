@@ -30,13 +30,13 @@ function registerObserver() {
     return img;
   }
 
-  const processed = new WeakMap();
+  const processed = new WeakSet();
 
   function getNewElements(elements) {
     const results = [];
     for (const e of elements) {
-      if (!processed.get(e)) {
-        processed.set(e);
+      if (!processed.has(e)) {
+        processed.add(e);
         results.push(e);
       }
     }
