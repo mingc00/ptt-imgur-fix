@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## 3.4.3 (2022-02-23)
+
+- Fix mp4 preview style
+
+## 3.4.1 (2022-02-12)
+
+- Fix gallery processing
+
+## 3.4.0 (2022-02-03)
+
+- Add mp4 support
+- Add imgur gallery support
+
+## 3.3.0 (2022-01-19)
+
+- remove referer from all imgur requests
+
+## 3.2.0 (2021-11-23)
+
+- compatible with http
+
+## 3.1.0 (2021-11-12)
+
+- support m.imgur.com/a
+
 ## 3.0.0 (2021-10-09)
 
 - Preview following images in term.ptt.cc

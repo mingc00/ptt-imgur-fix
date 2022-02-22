@@ -98,7 +98,7 @@ function registerObserver() {
     videoImgs.forEach((img) => {
       const videoEl = document.createElement("video");
       videoEl.src = img.src;
-      videoEl.classList.add("hyperLinkPreview");
+      videoEl.classList.add("easyReadingImg", "hyperLinkPreview");
       videoEl.controls = true;
       img.parentNode.replaceChild(videoEl, img);
     });
