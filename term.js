@@ -30,6 +30,16 @@ function registerObserver() {
     return img;
   }
 
+  function createGif(url) {
+    const video = document.createElement("video");
+    video.classList.add("easyReadingImg", "hyperLinkPreview");
+    video.src = url.replace(/\.gif$/, ".mp4");
+    video.loop = true;
+    video.autoplay = true;
+    video.controls = false;
+    return video;
+  }
+
   const processed = new WeakSet();
 
   function getNewElements(elements) {
@@ -101,7 +111,9 @@ function registerObserver() {
       }
       const links = await resolveAlbum(hash);
       for (const link of links) {
-        div.appendChild(createImage(link));
+        div.appendChild(
+          link.endsWith(".gif") ? createGif(link) : createImage(link)
+        );
       }
     });
 
