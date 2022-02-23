@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 4.0.0 (2022-02-23)
+
+- Add youtube player in term
+- Replace gif with video (imgur album)
+- Replace jpg and png with webp (imgur album)
+- Support pic.pimg.tw in term
+
 ## 3.4.3 (2022-02-23)
 
 - Fix mp4 preview style
