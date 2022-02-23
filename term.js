@@ -44,7 +44,7 @@ function registerObserver() {
   }
 
   function onUpdate() {
-    const as = getNewElements(container.querySelectorAll(`a`));
+    const as = getNewElements(container.querySelectorAll("a"));
     const targets = as.filter(
       (a) =>
         a.href.startsWith("https://pbs.twimg.com/") ||
@@ -63,10 +63,20 @@ function registerObserver() {
       container.querySelectorAll('img.hyperLinkPreview[src$=".mp4"]')
     );
 
+    const ytAnchors = as
+      .map((a) => {
+        const id = a.href.match(
+          /https:\/\/(?:youtu\.be\/|www\.youtube\.com\/watch\?v=)([\w-]+)/
+        )?.[1];
+        return id ? [a, id] : null;
+      })
+      .filter((e) => e);
+
     if (
       targets.length === 0 &&
       albumAnchors.length === 0 &&
-      videoImgs.length === 0
+      videoImgs.length === 0 &&
+      ytAnchors.length === 0
     ) {
       timer = null;
       return;
@@ -101,6 +111,26 @@ function registerObserver() {
       videoEl.classList.add("easyReadingImg", "hyperLinkPreview");
       videoEl.controls = true;
       img.parentNode.replaceChild(videoEl, img);
+    });
+
+    ytAnchors.forEach(([a, id]) => {
+      const div = getPreviewContainer(a);
+      if (!div || div.childNodes.length !== 0) {
+        return;
+      }
+      const container = document.createElement("div");
+      container.style.margin = "0.5em auto";
+      container.style.maxWidth = "800px";
+      container.style.height = "450px";
+      const iframe = document.createElement("iframe");
+      iframe.type = "text/html";
+      iframe.src = `//www.youtube.com/embed/${id}`;
+      iframe.style.border = "none";
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.allowFullscreen = true;
+      container.appendChild(iframe);
+      div.appendChild(container);
     });
 
     observer.observe(container, config);
