@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.0.1 (2022-02-23)
+
+- Fix some broken Youtube embed
+
 ## 4.0.0 (2022-02-23)
 
 - Add youtube player in term
