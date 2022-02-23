@@ -1,6 +1,6 @@
 {
-  "name": "Ptt Imgur fix",
-  "description": "修正 Ptt 網頁版圖片顯示",
+  "name": "Ptt Media Preview",
+  "description": "增強 Ptt 連結預覽體驗",
   "version": "4.0.0",
   "icons": {
     "48": "icon/48.png",
