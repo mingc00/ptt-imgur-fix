@@ -58,7 +58,8 @@ function registerObserver() {
     const targets = as.filter(
       (a) =>
         a.href.startsWith("https://pbs.twimg.com/") ||
-        a.href.startsWith("https://live.staticflickr.com/")
+        a.href.startsWith("https://live.staticflickr.com/") ||
+        a.href.startsWith("https://pic.pimg.tw/")
     );
     const albumAnchors = as
       .map((a) => {
