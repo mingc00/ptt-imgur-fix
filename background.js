@@ -12,3 +12,18 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
   { urls: ["https://*.imgur.com/*"], types: ["image"] },
   ["blocking", "requestHeaders"].concat(chrome.app ? ["extraHeaders"] : [])
 );
+
+chrome.webRequest.onBeforeRequest.addListener(
+  function redirectToWebP(details) {
+    if (details.initiator !== "https://term.ptt.cc") {
+      return;
+    }
+    const { url } = details;
+    const m = url.match(/\.(jpg|png)$/);
+    if (m) {
+      return { redirectUrl: url.slice(0, m.index) + ".webp" };
+    }
+  },
+  { urls: ["https://i.imgur.com/*"], types: ["image"] },
+  ["blocking"]
+);
