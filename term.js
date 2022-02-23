@@ -142,6 +142,7 @@ function registerObserver() {
       iframe.style.width = "100%";
       iframe.style.height = "100%";
       iframe.allowFullscreen = true;
+      iframe.referrerPolicy = "origin-when-cross-origin";
       container.appendChild(iframe);
       div.appendChild(container);
     });
