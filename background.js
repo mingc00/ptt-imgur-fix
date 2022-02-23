@@ -15,7 +15,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 
 chrome.webRequest.onBeforeRequest.addListener(
   function redirectToWebP(details) {
-    if (details.initiator !== "https://term.ptt.cc") {
+    const source = details.initiator || details.originUrl;
+    if (!source.startsWith("https://term.ptt.cc")) {
       return;
     }
     const { url } = details;
