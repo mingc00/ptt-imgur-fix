@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.1.0 (2022-05-21)
+
+- Remove redirection to webp
+
 ## 4.0.1 (2022-02-23)
 
 - Fix some broken Youtube embed
