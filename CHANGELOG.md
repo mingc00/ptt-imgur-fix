@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.2.0 (2022-06-28)
+
+- Support i.pixiv.cat in term
+
 ## 4.1.0 (2022-05-21)
 
 - Remove redirection to webp
