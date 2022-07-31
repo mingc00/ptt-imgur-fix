@@ -1,20 +1,22 @@
 {
   "name": "Ptt Media Preview",
   "description": "增強 Ptt 連結預覽體驗",
-  "version": "5.0.0",
+  "version": "4.2.0",
   "icons": {
     "48": "icon/48.png",
     "128": "icon/128.png",
     "256": "icon/256.png"
   },
   "permissions": [
-    "declarativeNetRequest"
-  ],
-  "host_permissions": [
+    "webRequest",
+    "webRequestBlocking",
     "https://*.imgur.com/*",
     "https://www.ptt.cc/*",
     "https://term.ptt.cc/"
   ],
+  "background": {
+    "scripts": ["background.js"]
+  },
   "content_scripts": [
     {
       "matches": ["https://www.ptt.cc/*.html"],
@@ -25,12 +27,5 @@
       "js": ["imgur.js", "term.js"]
     }
   ],
-  "declarative_net_request": {
-    "rule_resources": [{
-      "id": "rule_set",
-      "enabled": true,
-      "path": "rules.json"
-    }]
-  },
-  "manifest_version": 3
+  "manifest_version": 2
 }
