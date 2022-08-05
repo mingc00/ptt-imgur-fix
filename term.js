@@ -8,6 +8,20 @@ function isEasyReadingEnabled() {
   return false;
 }
 
+let isEnabled = isEasyReadingEnabled();
+
+new MutationObserver((records) => {
+  for (const record of records) {
+    for (const node of record.removedNodes) {
+      if (node.role === 'dialog') {
+        isEnabled = isEasyReadingEnabled();
+        return;
+      }
+    }
+  }
+}).observe(document.body, { childList: true });
+
+
 function registerObserver() {
   const container = document.getElementById("mainContainer");
   if (!container) {
@@ -54,6 +68,11 @@ function registerObserver() {
   }
 
   function onUpdate() {
+    if (!isEnabled) {
+      timer = null;
+      return;
+    }
+
     const as = getNewElements(container.querySelectorAll("a"));
     const targets = as.filter(
       (a) =>
@@ -160,6 +179,4 @@ function registerObserver() {
   observer.observe(container, config);
 }
 
-if (isEasyReadingEnabled()) {
-  registerObserver();
-}
+registerObserver();
