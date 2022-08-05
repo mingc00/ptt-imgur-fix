@@ -67,6 +67,10 @@ function registerObserver() {
     return results;
   }
 
+  function getPreviewContainer(a) {
+    return a.parentNode.nextSibling;
+  }
+
   function onUpdate() {
     if (!isEnabled) {
       timer = null;
@@ -76,11 +80,11 @@ function registerObserver() {
     const as = getNewElements(container.querySelectorAll("a"));
     const targets = as.filter(
       (a) =>
-        a.href.startsWith("https://pbs.twimg.com/") ||
-        a.href.startsWith("https://live.staticflickr.com/") ||
-        a.href.startsWith("https://pic.pimg.tw/") ||
-        a.href.startsWith("https://i.pixiv.cat/")
-    );
+        /(png|jpeg|jpg|gif)$/i.test(a.href)
+    ).filter((a) => {
+      const container = getPreviewContainer(a);
+      return container && !container.firstChild;
+    });
     const albumAnchors = as
       .map((a) => {
         const hash = a.href.match(
@@ -113,15 +117,9 @@ function registerObserver() {
       return;
     }
 
-    function getPreviewContainer(a) {
-      return a.parentNode.nextSibling;
-    }
     observer.disconnect();
     targets.forEach((a) => {
       const div = getPreviewContainer(a);
-      if (!div || div.childNodes.length !== 0) {
-        return;
-      }
       div.appendChild(createImage(a.href));
     });
 
