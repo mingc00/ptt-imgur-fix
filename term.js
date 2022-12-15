@@ -34,8 +34,6 @@ function registerObserver() {
     subtree: true,
   };
 
-  let timer = null;
-
   function createImage(url) {
     const img = document.createElement("img");
     img.classList.add("easyReadingImg", "hyperLinkPreview");
@@ -73,7 +71,10 @@ function registerObserver() {
 
   function onUpdate() {
     if (!isEnabled) {
-      timer = null;
+      return;
+    }
+
+    if (!container.querySelector('.q4.b7')) {
       return;
     }
 
@@ -113,7 +114,6 @@ function registerObserver() {
       videoImgs.length === 0 &&
       ytAnchors.length === 0
     ) {
-      timer = null;
       return;
     }
 
@@ -166,12 +166,15 @@ function registerObserver() {
     });
 
     observer.observe(container, config);
-    timer = null;
   }
 
+  let timer = null;
   const observer = new MutationObserver(function () {
     if (!timer) {
-      timer = setTimeout(onUpdate, 50);
+      timer = setTimeout(() => {
+        onUpdate();
+        timer = null;
+      }, 50);
     }
   });
   observer.observe(container, config);
