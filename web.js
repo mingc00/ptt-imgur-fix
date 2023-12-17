@@ -19,8 +19,8 @@ for (const a of links) {
   let match = null;
   if ((match = pathname.match(/^\/(?:a|gallery)\/(\w+)/))) {
     albums.push({ dom: a, hash: match[1] });
-  } else if ((match = pathname.match(/^\/(\w+)(\.(?:jpg|png))?$/))) {
-    createPreview(a, `https://i.imgur.com/${match[1]}${match[2] || '.jpg'}`);
+  } else if ((match = pathname.match(/^\/(\w+)$/))) {
+    createPreview(a, `https://i.imgur.com/${match[1]}`);
   }
 }
 
