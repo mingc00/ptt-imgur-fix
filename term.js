@@ -35,10 +35,8 @@ function registerObserver() {
   };
 
   function createImage(url) {
-    const img = document.createElement("img");
+    const img = createImageEl(url);
     img.classList.add("easyReadingImg", "hyperLinkPreview");
-    img.referrerPolicy = "no-referrer";
-    img.src = url;
     return img;
   }
 

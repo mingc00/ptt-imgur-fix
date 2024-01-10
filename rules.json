@@ -9,7 +9,7 @@
   },
   "condition": {
     "urlFilter": "https://*.imgur.com/*",
-    "resourceTypes": ["image"]
+    "resourceTypes": ["image", "media"]
   }
 }, {
   "id": 2,
