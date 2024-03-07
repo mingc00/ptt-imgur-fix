@@ -50,6 +50,24 @@ function registerObserver() {
     return video;
   }
 
+  function createIframe(src) {
+    const container = document.createElement("div");
+    container.style.margin = "0.5em auto";
+    container.style.maxWidth = "800px";
+    container.style.height = "450px";
+
+    const iframe = document.createElement("iframe");
+    iframe.type = "text/html";
+    iframe.src = src;
+    iframe.style.border = "none";
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = "origin-when-cross-origin";
+    container.appendChild(iframe);
+    return container;
+  }
+
   const processed = new WeakSet();
 
   function getNewElements(elements) {
@@ -106,11 +124,18 @@ function registerObserver() {
       })
       .filter((e) => e);
 
+    const twitchAnchors = as
+      .map((a) => {
+        const id = a.href.match(/https:\/\/clips\.twitch\.tv\/([\w-]+)/)?.[1];
+        return id ? [a, id] : null;
+      }).filter((e) => e);
+
     if (
       targets.length === 0 &&
       albumAnchors.length === 0 &&
       videoImgs.length === 0 &&
-      ytAnchors.length === 0
+      ytAnchors.length === 0 &&
+      twitchAnchors.length === 0
     ) {
       return;
     }
@@ -160,6 +185,15 @@ function registerObserver() {
       iframe.allowFullscreen = true;
       iframe.referrerPolicy = "origin-when-cross-origin";
       container.appendChild(iframe);
+      div.appendChild(container);
+    });
+
+    twitchAnchors.forEach(([a, id]) => {
+      const div = getPreviewContainer(a);
+      if (!div || div.childNodes.length !== 0) {
+        return;
+      }
+      const container = createIframe(`https://clips.twitch.tv/embed?clip=${id}&parent=term.ptt.cc`);
       div.appendChild(container);
     });
 
