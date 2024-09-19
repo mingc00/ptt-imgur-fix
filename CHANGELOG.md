@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## 5.2.0 (2024-09-19)
+
+- Fix broken cache.ptt.cc in web
+- Support http imgur link in web
+
+## 5.1.0 (2024-03-07)
+
+- Support twitch clip
+
+## 5.0.5 (2024-01-11)
+
+- Resolve unknown type of image link
+
+## 5.0.4 (2023-12-18)
+
+- Remove referer form request to imgur
+
+## 5.0.3 (2023-12-17)
+
+- Preview imgur image with extension name
+
+## 5.0.1 (2022-12-16)
+
+- Display all images in term
+
+## 5.0.0 (2022-07-31)
+
+- Migrate to manifest v3
+
 ## 4.2.0 (2022-06-28)
 
 - Support i.pixiv.cat in term

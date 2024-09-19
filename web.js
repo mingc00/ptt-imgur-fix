@@ -1,4 +1,4 @@
-const links = document.querySelectorAll('a[href^="https://imgur.com"]');
+const links = document.querySelectorAll('a[href*="//imgur.com"]');
 
 function createDiv(...classes) {
   const div = document.createElement("div");
@@ -59,4 +59,17 @@ for (const a of document.querySelectorAll('a[href^="https://clips.twitch.tv"]'))
   const container = createDiv('resize-container');
   container.appendChild(contentDiv);
   insertPreview(a, container);
+}
+
+function fixBrokenCache(img) {
+  const path = new URL(img.src).pathname;
+  const originalURL = path.replace(/^\/c\/https\//, 'https://');
+  img.src = originalURL;
+}
+
+const cacheLink = document.querySelectorAll('img[src^="https://cache.ptt.cc"]');
+for (const img of cacheLink) {
+  img.addEventListener('error', (e) => {
+    fixBrokenCache(e.target);
+  }, { once: true });
 }
