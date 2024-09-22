@@ -69,7 +69,5 @@ function fixBrokenCache(img) {
 
 const cacheLink = document.querySelectorAll('img[src^="https://cache.ptt.cc"]');
 for (const img of cacheLink) {
-  img.addEventListener('error', (e) => {
-    fixBrokenCache(e.target);
-  }, { once: true });
+  fixBrokenCache(img);
 }

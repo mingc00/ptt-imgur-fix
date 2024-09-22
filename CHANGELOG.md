@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.2.1 (2024-09-22)
+
+- Fix cache.ptt.cc hang
+
 ## 5.2.0 (2024-09-19)
 
 - Fix broken cache.ptt.cc in web
