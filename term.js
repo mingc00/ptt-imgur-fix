@@ -97,7 +97,8 @@ function registerObserver() {
     const as = getNewElements(container.querySelectorAll("a"));
     const targets = as.filter(
       (a) =>
-        /(png|jpeg|jpg|gif)$/i.test(a.href)
+        /(png|jpeg|jpg|gif)$/i.test(a.href) ||
+        a.href.startsWith('https://pbs.twimg.com/media/')
     ).filter((a) => {
       const container = getPreviewContainer(a);
       return container && !container.firstChild;

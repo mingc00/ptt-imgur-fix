@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.3.0 (2024-12-20)
+
+- Enhance twimg detection
+
 ## 5.2.1 (2024-09-22)
 
 - Fix cache.ptt.cc hang

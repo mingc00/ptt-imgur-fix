@@ -61,6 +61,10 @@ for (const a of document.querySelectorAll('a[href^="https://clips.twitch.tv"]'))
   insertPreview(a, container);
 }
 
+for (const a of document.querySelectorAll('a[href^="https://pbs.twimg.com/media/"][href*="?format="]')) {
+  insertPreview(a, createImageEl(a.href));
+}
+
 function fixBrokenCache(img) {
   const path = new URL(img.src).pathname;
   const originalURL = path.replace(/^\/c\/https\//, 'https://');
