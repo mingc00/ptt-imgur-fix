@@ -1,6 +1,15 @@
 async function get(path) {
+  const clientIDs = [
+    // 'be82c350cb8d1c6',
+    'a023b4e4a5324bc',
+    'ca7108e04622b7a',
+    'e83ef0f75467fbf',
+    '8683d4c3edf9f8f',
+    '88f07b92270c5f2',
+  ];
+  const clientID = clientIDs[Math.floor(Math.random() * clientIDs.length)];
   const response = await fetch(
-    `https://api.imgur.com/3/${path}?client_id=be82c350cb8d1c6`,
+    `https://api.imgur.com/3/${path}?client_id=${clientID}`,
     {
       method: "GET",
       mode: "cors",
