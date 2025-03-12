@@ -1,6 +1,6 @@
 const links = [
   ...document.querySelectorAll('a[href*="//imgur.com"]'),
-  ...document.querySelectorAll('a[href*="//i.imgur.com/a/"]'),
+  ...document.querySelectorAll('a[href*="//i.imgur.com/"]'),
 ];
 
 function createDiv(...classes) {
@@ -15,6 +15,21 @@ function insertPreview(anchor, el) {
   anchor.parentNode.insertBefore(div, anchor.nextSibling);
 }
 
+function createLazyImageEl(src) {
+  const imgEl = createImageEl(src);
+  imgEl.loading = 'lazy';
+  return imgEl;
+}
+
+function fixBrokenPreview(anchor) {
+  const next = anchor.nextElementSibling;
+  if (next?.classList.contains('richcontent')) {
+    next.firstChild.src = anchor.href;
+  } else {
+    insertPreview(anchor, createLazyImageEl(anchor.href));
+  }
+}
+
 const albums = [];
 const unknownHashes = [];
 
@@ -24,6 +39,8 @@ for (const a of links) {
   let match = null;
   if ((match = pathname.match(/^\/(?:a|gallery)\/(\w+)/))) {
     albums.push([a, match[1]]);
+  } else if (/(png|jpeg|jpg|gif)$/i.test(pathname)) {
+    fixBrokenPreview(a);
   } else if ((match = pathname.match(/^\/(\w+)$/))) {
     unknownHashes.push([a, match[1]]);
   }
@@ -32,7 +49,7 @@ for (const a of links) {
 albums.forEach(async ([a, hash]) => {
   const links = await resolveAlbum(hash);
   for (const link of links.reverse()) {
-    insertPreview(a, createImageEl(link));
+    insertPreview(a, createLazyImageEl(link));
   }
 });
 
@@ -42,7 +59,7 @@ unknownHashes.forEach(async ([a, hash]) => {
   if (type.startsWith('video/')) {
     el = createVideoEl(link);
   } else if (type.startsWith('image/')) {
-    el = createImageEl(link);
+    el = createLazyImageEl(link);
   }
   if (el) {
     insertPreview(a, el);
@@ -65,16 +82,5 @@ for (const a of document.querySelectorAll('a[href^="https://clips.twitch.tv"]'))
 }
 
 for (const a of document.querySelectorAll('a[href^="https://pbs.twimg.com/media/"][href*="?format="]')) {
-  insertPreview(a, createImageEl(a.href));
-}
-
-function fixBrokenCache(img) {
-  const path = new URL(img.src).pathname;
-  const originalURL = path.replace(/^\/c\/https\//, 'https://');
-  img.src = originalURL;
-}
-
-const cacheLink = document.querySelectorAll('img[src^="https://cache.ptt.cc"]');
-for (const img of cacheLink) {
-  fixBrokenCache(img);
+  insertPreview(a, createLazyImageEl(a.href));
 }
