@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 5.4.0 (2025-03-12)
+
+- Support i.imgur.com/a/
+- Fix imgur album link resolver
+- Fix imgur preview in web
+
 ## 5.3.0 (2024-12-20)
 
 - Enhance twimg detection
