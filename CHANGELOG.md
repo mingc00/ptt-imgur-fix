@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.4.1 (2025-03-26)
+
+- Fix youtube start time code
+
 ## 5.4.0 (2025-03-12)
 
 - Support i.imgur.com/a/
