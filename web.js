@@ -4,13 +4,13 @@ const links = [
 ];
 
 function createDiv(...classes) {
-  const div = document.createElement("div");
+  const div = document.createElement('div');
   div.classList.add(...classes);
   return div;
 }
 
 function insertPreview(anchor, el) {
-  const div = createDiv("richcontent");
+  const div = createDiv('richcontent');
   div.appendChild(el);
   anchor.parentNode.insertBefore(div, anchor.nextSibling);
 }
@@ -68,13 +68,13 @@ unknownHashes.forEach(async ([a, hash]) => {
 
 for (const a of document.querySelectorAll('a[href^="https://clips.twitch.tv"]')) {
   const url = new URL(a.href);
-  const iframe = document.createElement("iframe");
-  iframe.classList.add("youtube-player");
-  iframe.type = "text/html";
+  const iframe = document.createElement('iframe');
+  iframe.classList.add('youtube-player');
+  iframe.type = 'text/html';
   iframe.src = `https://clips.twitch.tv/embed?clip=${url.pathname.slice(1)}&parent=www.ptt.cc`;
   iframe.allowFullscreen = true;
-  iframe.style.border = "none";
-  const contentDiv = createDiv("resize-content");
+  iframe.style.border = 'none';
+  const contentDiv = createDiv('resize-content');
   contentDiv.appendChild(iframe);
   const container = createDiv('resize-container');
   container.appendChild(contentDiv);

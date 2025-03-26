@@ -1,6 +1,6 @@
 function isEasyReadingEnabled() {
   try {
-    const pref = JSON.parse(localStorage["pttchrome.pref.v1"]);
+    const pref = JSON.parse(localStorage['pttchrome.pref.v1']);
     return pref.values.enableEasyReading;
   } catch (e) {
     console.error(e);
@@ -21,9 +21,8 @@ new MutationObserver((records) => {
   }
 }).observe(document.body, { childList: true });
 
-
 function registerObserver() {
-  const container = document.getElementById("mainContainer");
+  const container = document.getElementById('mainContainer');
   if (!container) {
     setTimeout(registerObserver, 1000);
     return;
@@ -36,14 +35,14 @@ function registerObserver() {
 
   function createImage(url) {
     const img = createImageEl(url);
-    img.classList.add("easyReadingImg", "hyperLinkPreview");
+    img.classList.add('easyReadingImg', 'hyperLinkPreview');
     return img;
   }
 
   function createGif(url) {
-    const video = document.createElement("video");
-    video.classList.add("easyReadingImg", "hyperLinkPreview");
-    video.src = url.replace(/\.gif$/, ".mp4");
+    const video = document.createElement('video');
+    video.classList.add('easyReadingImg', 'hyperLinkPreview');
+    video.src = url.replace(/\.gif$/, '.mp4');
     video.loop = true;
     video.autoplay = true;
     video.controls = false;
@@ -51,19 +50,19 @@ function registerObserver() {
   }
 
   function createIframe(src) {
-    const container = document.createElement("div");
-    container.style.margin = "0.5em auto";
-    container.style.maxWidth = "800px";
-    container.style.height = "450px";
+    const container = document.createElement('div');
+    container.style.margin = '0.5em auto';
+    container.style.maxWidth = '800px';
+    container.style.height = '450px';
 
-    const iframe = document.createElement("iframe");
-    iframe.type = "text/html";
+    const iframe = document.createElement('iframe');
+    iframe.type = 'text/html';
     iframe.src = src;
-    iframe.style.border = "none";
-    iframe.style.width = "100%";
-    iframe.style.height = "100%";
+    iframe.style.border = 'none';
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
     iframe.allowFullscreen = true;
-    iframe.referrerPolicy = "origin-when-cross-origin";
+    iframe.referrerPolicy = 'origin-when-cross-origin';
     container.appendChild(iframe);
     return container;
   }
@@ -94,12 +93,12 @@ function registerObserver() {
       return;
     }
 
-    const as = getNewElements(container.querySelectorAll("a"));
+    const as = getNewElements(container.querySelectorAll('a'));
     const imgurAlbumRe = /https?:\/\/(?:[mi]\.)?imgur.com\/(?:a|gallery)\/(\w+)/;
     const targets = as.filter(
       (a) =>
-        (/(png|jpeg|jpg|gif)$/i.test(a.href) && !imgurAlbumRe.test(a.href)) ||
-        a.href.startsWith('https://pbs.twimg.com/media/')
+        (/(png|jpeg|jpg|gif)$/i.test(a.href) && !imgurAlbumRe.test(a.href))
+        || a.href.startsWith('https://pbs.twimg.com/media/'),
     ).filter((a) => {
       const container = getPreviewContainer(a);
       return container && !container.firstChild;
@@ -107,20 +106,20 @@ function registerObserver() {
     const albumAnchors = as
       .map((a) => {
         const hash = a.href.match(
-          imgurAlbumRe
+          imgurAlbumRe,
         )?.[1];
         return hash ? [a, hash] : null;
       })
       .filter((e) => e);
 
     const videoImgs = getNewElements(
-      container.querySelectorAll('img.hyperLinkPreview[src$=".mp4"]')
+      container.querySelectorAll('img.hyperLinkPreview[src$=".mp4"]'),
     );
 
     const ytAnchors = as
       .map((a) => {
         const id = a.href.match(
-          /https:\/\/(?:youtu\.be\/|www\.youtube\.com\/watch\?v=)([\w-]+)/
+          /https:\/\/(?:youtu\.be\/|www\.youtube\.com\/watch\?v=)([\w-]+)/,
         )?.[1];
         return id ? [a, id] : null;
       })
@@ -133,11 +132,11 @@ function registerObserver() {
       }).filter((e) => e);
 
     if (
-      targets.length === 0 &&
-      albumAnchors.length === 0 &&
-      videoImgs.length === 0 &&
-      ytAnchors.length === 0 &&
-      twitchAnchors.length === 0
+      targets.length === 0
+      && albumAnchors.length === 0
+      && videoImgs.length === 0
+      && ytAnchors.length === 0
+      && twitchAnchors.length === 0
     ) {
       return;
     }
@@ -156,15 +155,15 @@ function registerObserver() {
       const links = await resolveAlbum(hash);
       for (const link of links) {
         div.appendChild(
-          link.endsWith(".gif") ? createGif(link) : createImage(link)
+          link.endsWith('.gif') ? createGif(link) : createImage(link),
         );
       }
     });
 
     videoImgs.forEach((img) => {
-      const videoEl = document.createElement("video");
+      const videoEl = document.createElement('video');
       videoEl.src = img.src;
-      videoEl.classList.add("easyReadingImg", "hyperLinkPreview");
+      videoEl.classList.add('easyReadingImg', 'hyperLinkPreview');
       videoEl.controls = true;
       img.parentNode.replaceChild(videoEl, img);
     });
@@ -176,21 +175,21 @@ function registerObserver() {
       }
       const url = new URL(a.href);
       let src = `https://www.youtube.com/embed/${id}`;
-      if (url.searchParams.has("t")) {
-        src += `?start=${url.searchParams.get("t")}`;
+      if (url.searchParams.has('t')) {
+        src += `?start=${url.searchParams.get('t')}`;
       }
-      const container = document.createElement("div");
-      container.style.margin = "0.5em auto";
-      container.style.maxWidth = "800px";
-      container.style.height = "450px";
-      const iframe = document.createElement("iframe");
-      iframe.type = "text/html";
+      const container = document.createElement('div');
+      container.style.margin = '0.5em auto';
+      container.style.maxWidth = '800px';
+      container.style.height = '450px';
+      const iframe = document.createElement('iframe');
+      iframe.type = 'text/html';
       iframe.src = src;
-      iframe.style.border = "none";
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
+      iframe.style.border = 'none';
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
       iframe.allowFullscreen = true;
-      iframe.referrerPolicy = "origin-when-cross-origin";
+      iframe.referrerPolicy = 'origin-when-cross-origin';
       container.appendChild(iframe);
       div.appendChild(container);
     });
@@ -208,7 +207,7 @@ function registerObserver() {
   }
 
   let timer = null;
-  const observer = new MutationObserver(function () {
+  const observer = new MutationObserver(function() {
     if (!timer) {
       timer = setTimeout(() => {
         onUpdate();

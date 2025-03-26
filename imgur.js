@@ -11,24 +11,24 @@ async function get(path) {
   const response = await fetch(
     `https://api.imgur.com/3/${path}?client_id=${clientID}`,
     {
-      method: "GET",
-      mode: "cors",
-      referrerPolicy: "no-referrer",
-    }
+      method: 'GET',
+      mode: 'cors',
+      referrerPolicy: 'no-referrer',
+    },
   );
   return await response.json();
 }
 
 function createVideoEl(src) {
-  const videoEl = document.createElement("video");
+  const videoEl = document.createElement('video');
   videoEl.src = src;
   videoEl.controls = true;
   return videoEl;
 }
 
 function createImageEl(src) {
-  const imgEl = document.createElement("img");
-  imgEl.referrerPolicy = "no-referrer";
+  const imgEl = document.createElement('img');
+  imgEl.referrerPolicy = 'no-referrer';
   imgEl.src = src;
   return imgEl;
 }
