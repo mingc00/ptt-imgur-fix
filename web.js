@@ -84,3 +84,16 @@ for (const a of document.querySelectorAll('a[href^="https://clips.twitch.tv"]'))
 for (const a of document.querySelectorAll('a[href^="https://pbs.twimg.com/media/"][href*="?format="]')) {
   insertPreview(a, createLazyImageEl(a.href));
 }
+
+// fix youtube links with start time
+for (const a of document.querySelectorAll('a[href^="https://youtu.be/"]')) {
+  const url = new URL(a.href);
+  const start = url.searchParams.get('t');
+  if (!start) {
+    continue;
+  }
+  const iframe = document.querySelector(`iframe.youtube-player[src*="${url.pathname}"]`);
+  if (iframe) {
+    iframe.src += `?start=${start}`;
+  }
+}

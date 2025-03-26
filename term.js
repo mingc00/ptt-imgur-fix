@@ -174,13 +174,18 @@ function registerObserver() {
       if (!div || div.childNodes.length !== 0) {
         return;
       }
+      const url = new URL(a.href);
+      let src = `https://www.youtube.com/embed/${id}`;
+      if (url.searchParams.has("t")) {
+        src += `?start=${url.searchParams.get("t")}`;
+      }
       const container = document.createElement("div");
       container.style.margin = "0.5em auto";
       container.style.maxWidth = "800px";
       container.style.height = "450px";
       const iframe = document.createElement("iframe");
       iframe.type = "text/html";
-      iframe.src = `//www.youtube.com/embed/${id}`;
+      iframe.src = src;
       iframe.style.border = "none";
       iframe.style.width = "100%";
       iframe.style.height = "100%";
