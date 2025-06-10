@@ -5,7 +5,9 @@
   "scripts": {
     "build:chrome": "./pack.py",
     "build:firefox": "./pack.py v2",
-    "postversion": "jq --arg version \"$npm_package_version\" '.version = $version' manifest.json > manifest.json.tmp && mv manifest.json.tmp manifest.json && jq --arg version \"$npm_package_version\" '.version = $version' manifest.v2.json > manifest.v2.json.tmp && mv manifest.v2.json.tmp manifest.v2.json"
+    "postversion": "jq --arg version \"$npm_package_version\" '.version = $version' manifest.json > manifest.json.tmp && mv manifest.json.tmp manifest.json && jq --arg version \"$npm_package_version\" '.version = $version' manifest.v2.json > manifest.v2.json.tmp && mv manifest.v2.json.tmp manifest.v2.json",
+    "format": "dprint fmt",
+    "lint": "eslint . --ext .js,.ts --fix"
   },
   "repository": {
     "type": "git",
