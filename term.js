@@ -1,6 +1,10 @@
 function isEasyReadingEnabled() {
+  const raw = localStorage['pttchrome.pref.v1'];
+  if (!raw) {
+    return false;
+  }
   try {
-    const pref = JSON.parse(localStorage['pttchrome.pref.v1']);
+    const pref = JSON.parse(raw);
     return pref.values.enableEasyReading;
   } catch (e) {
     console.error(e);
