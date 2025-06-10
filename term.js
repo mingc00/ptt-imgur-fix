@@ -120,6 +120,9 @@ function registerObserver() {
       container.querySelectorAll('img.hyperLinkPreview[src$=".mp4"]'),
     );
 
+    const meeeAnchor = as
+      .filter(a => /^https:\/\/meee\.com\.tw\/\w+$/.test(a.href));
+
     const ytAnchors = as
       .map((a) => {
         const id = a.href.match(
@@ -139,6 +142,7 @@ function registerObserver() {
       targets.length === 0
       && albumAnchors.length === 0
       && videoImgs.length === 0
+      && meeeAnchor.length === 0
       && ytAnchors.length === 0
       && twitchAnchors.length === 0
     ) {
@@ -170,6 +174,13 @@ function registerObserver() {
       videoEl.classList.add('easyReadingImg', 'hyperLinkPreview');
       videoEl.controls = true;
       img.parentNode.replaceChild(videoEl, img);
+    });
+
+    meeeAnchor.forEach((a) => {
+      const url = new URL(a.href);
+      url.pathname += '.png';
+      const div = getPreviewContainer(a);
+      div.appendChild(createImage(url.toString()));
     });
 
     ytAnchors.forEach(([a, id]) => {

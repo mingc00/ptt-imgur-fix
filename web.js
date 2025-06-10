@@ -66,6 +66,15 @@ unknownHashes.forEach(async ([a, hash]) => {
   }
 });
 
+for (const a of document.querySelectorAll('a[href^="https://meee.com.tw/"]')) {
+  const url = new URL(a.href);
+  if (!url.pathname.match(/^\/\w+$/)) {
+    continue;
+  }
+  url.pathname += '.png';
+  insertPreview(a, createLazyImageEl(url.toString()));
+}
+
 for (const a of document.querySelectorAll('a[href^="https://clips.twitch.tv"]')) {
   const url = new URL(a.href);
   const iframe = document.createElement('iframe');
