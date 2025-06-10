@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.5.0 (2025-06-10)
+
+- Support meee.com.tw
+
 ## 5.4.1 (2025-03-26)
 
 - Fix youtube start time code
