@@ -1,33 +1,38 @@
-function isEasyReadingEnabled() {
+function getConfig() {
   const raw = localStorage['pttchrome.pref.v1'];
+  const config = {
+    isEasyReadingEnabled: false,
+    isPicPreviewEnabled: true,
+  };
   if (!raw) {
-    return false;
+    return config;
   }
   try {
     const pref = JSON.parse(raw);
-    return pref.values.enableEasyReading;
+    config.isEasyReadingEnabled = !!pref.values.enableEasyReading;
+    config.isPicPreviewEnabled = !!pref.values.enablePicPreview;
   } catch (e) {
     console.error(e);
   }
-  return false;
+  return config;
 }
 
-let isEnabled = isEasyReadingEnabled();
+let { isEasyReadingEnabled, isPicPreviewEnabled } = getConfig();
 
 new MutationObserver((records) => {
   for (const record of records) {
     for (const node of record.removedNodes) {
       if (node.role === 'dialog') {
-        isEnabled = isEasyReadingEnabled();
+        ({ isEasyReadingEnabled, isPicPreviewEnabled } = getConfig());
         return;
       }
     }
   }
 }).observe(document.body, { childList: true });
 
-function registerObserver() {
-  const container = document.getElementById('mainContainer');
-  if (!container) {
+(function registerObserver() {
+  const mainContainer = document.getElementById('mainContainer');
+  if (!mainContainer) {
     setTimeout(registerObserver, 1000);
     return;
   }
@@ -43,7 +48,7 @@ function registerObserver() {
     return img;
   }
 
-  function createGif(url) {
+  function createImgurGif(url) {
     const video = document.createElement('video');
     video.classList.add('easyReadingImg', 'hyperLinkPreview');
     video.src = url.replace(/\.gif$/, '.mp4');
@@ -89,15 +94,15 @@ function registerObserver() {
   }
 
   function onUpdate() {
-    if (!isEnabled) {
+    if (!isEasyReadingEnabled && !isPicPreviewEnabled) {
       return;
     }
 
-    if (!container.querySelector('.q4.b7')) {
+    if (!mainContainer.querySelector('.q4.b7')) {
       return;
     }
 
-    const as = getNewElements(container.querySelectorAll('a'));
+    const as = getNewElements(mainContainer.querySelectorAll('a'));
     const imgurAlbumRe = /https?:\/\/(?:[mi]\.)?imgur.com\/(?:a|gallery)\/(\w+)/;
     const targets = as.filter(
       (a) =>
@@ -117,10 +122,10 @@ function registerObserver() {
       .filter((e) => e);
 
     const videoImgs = getNewElements(
-      container.querySelectorAll('img.hyperLinkPreview[src$=".mp4"]'),
+      mainContainer.querySelectorAll('img.hyperLinkPreview[src$=".mp4"]'),
     );
 
-    const meeeAnchor = as
+    const meeeAnchors = as
       .filter(a => /^https:\/\/meee\.com\.tw\/\w+$/.test(a.href));
 
     const ytAnchors = as
@@ -142,7 +147,7 @@ function registerObserver() {
       targets.length === 0
       && albumAnchors.length === 0
       && videoImgs.length === 0
-      && meeeAnchor.length === 0
+      && meeeAnchors.length === 0
       && ytAnchors.length === 0
       && twitchAnchors.length === 0
     ) {
@@ -163,7 +168,7 @@ function registerObserver() {
       const links = await resolveAlbum(hash);
       for (const link of links) {
         div.appendChild(
-          link.endsWith('.gif') ? createGif(link) : createImage(link),
+          link.endsWith('.gif') ? createImgurGif(link) : createImage(link),
         );
       }
     });
@@ -176,7 +181,7 @@ function registerObserver() {
       img.parentNode.replaceChild(videoEl, img);
     });
 
-    meeeAnchor.forEach((a) => {
+    meeeAnchors.forEach((a) => {
       const url = new URL(a.href);
       url.pathname += '.png';
       const div = getPreviewContainer(a);
@@ -218,7 +223,7 @@ function registerObserver() {
       div.appendChild(container);
     });
 
-    observer.observe(container, config);
+    observer.observe(mainContainer, config);
   }
 
   let timer = null;
@@ -230,7 +235,5 @@ function registerObserver() {
       }, 50);
     }
   });
-  observer.observe(container, config);
-}
-
-registerObserver();
+  observer.observe(mainContainer, config);
+})();
