@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.5.1 (2025-07-12)
+
+- Fix ptt web match pattern
+
 ## 5.5.0 (2025-06-10)
 
 - Support meee.com.tw
